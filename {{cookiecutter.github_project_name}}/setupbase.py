@@ -20,16 +20,11 @@ import subprocess
 import sys
 
 
-# BEFORE importing distutils, remove MANIFEST. distutils doesn't properly
-# update it when the contents of directories change.
-if os.path.exists('MANIFEST'): os.remove('MANIFEST')
-
-
-from distutils.core import setup
-from distutils.cmd import Command
-from distutils.command.build_py import build_py
-from distutils.command.sdist import sdist
-from distutils.dist import Distribution
+from setuptools import Command, setup
+from setuptools.command.build_py import build_py
+from setuptools.command.sdist import sdist
+from setuptools.command.develop import develop
+from setuptools.command.bdist_egg import bdist_egg
 from distutils import log
 
 try:
@@ -67,11 +62,6 @@ if "--skip-npm" in sys.argv:
     sys.argv.remove("--skip-npm")
 else:
     skip_npm = False
-
-
-# For some commands, use setuptools.  Note that we do NOT list install here!
-if 'develop' in sys.argv or any(a.startswith('bdist') for a in sys.argv):
-    import setuptools
 
 
 # ---------------------------------------------------------------------------
@@ -156,6 +146,7 @@ def create_cmdclass(prerelease_cmd=None, package_data_spec=None,
     from the root directory of the repository.
     e.g. `('share/foo/bar', ['pkgname/bizz/*', 'pkgname/baz/**'])`
     """
+    egg = bdist_egg if 'bdist_egg' in sys.argv else bdist_egg_disabled
     wrapped = [prerelease_cmd] if prerelease_cmd else []
     if package_data_spec or data_files_spec:
         wrapped.append('handle_files')
@@ -165,15 +156,14 @@ def create_cmdclass(prerelease_cmd=None, package_data_spec=None,
     cmdclass = dict(
         build_py=wrapper(build_py, strict=is_repo),
         sdist=wrapper(sdist, strict=True),
-        handle_files=handle_files
+        bdist_egg=egg,
+        develop=wrapper(develop, strict=True),
+        handle_files=handle_files,
     )
 
     if bdist_wheel:
         cmdclass['bdist_wheel'] = wrapper(bdist_wheel, strict=True)
 
-    if 'develop' in sys.argv:
-        from setuptools.command.develop import develop
-        cmdclass['develop'] = wrapper(develop, strict=True)
     return cmdclass
 
 
@@ -461,6 +451,16 @@ def _wrap_command(cmds, cls, strict=True):
             update_package_data(self.distribution)
             return result
     return WrappedCommand
+
+
+class bdist_egg_disabled(bdist_egg):
+    """Disabled version of bdist_egg
+    Prevents setup.py install performing setuptools' default easy_install,
+    which it should never ever do.
+    """
+    def run(self):
+        sys.exit("Aborting implicit building of eggs. Use `pip install .` " +
+                 " to install from source.")
 
 
 def _get_file_handler(package_data_spec, data_files_spec):
