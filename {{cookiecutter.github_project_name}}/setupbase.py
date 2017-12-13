@@ -146,12 +146,16 @@ def create_cmdclass(prerelease_cmd=None, package_data_spec=None,
     from the root directory of the repository.
     e.g. `('share/foo/bar', ['pkgname/bizz/*', 'pkgname/baz/**'])`
     """
-    egg = bdist_egg if 'bdist_egg' in sys.argv else bdist_egg_disabled
     wrapped = [prerelease_cmd] if prerelease_cmd else []
     if package_data_spec or data_files_spec:
         wrapped.append('handle_files')
     wrapper = functools.partial(_wrap_command, wrapped)
     handle_files = _get_file_handler(package_data_spec, data_files_spec)
+
+    if 'bdist_egg' in sys.argv:
+        egg = wrapper(bdist_egg, strict=True)
+    else:
+        egg = bdist_egg_disabled
 
     cmdclass = dict(
         build_py=wrapper(build_py, strict=is_repo),
@@ -221,6 +225,7 @@ def combine_commands(*commands):
     """Return a Command that combines several commands."""
 
     class CombinedCommand(Command):
+        user_options = []
 
         def initialize_options(self):
             self.commands = []
