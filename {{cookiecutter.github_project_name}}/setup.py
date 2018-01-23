@@ -47,7 +47,7 @@ data_files_spec = [
     ('share/jupyter/nbextensions/{{ cookiecutter.npm_package_name }}',
         nb_path, '*.js*'),
     ('share/jupyter/lab/extensions', lab_path, '*.tgz'),
-    ('etc/jupyter/nbconfig/notebook.d/' , HERE, '{{ cookiecutter.npm_package_name }}.json')
+    ('etc/jupyter/nbconfig/notebook.d' , HERE, '{{ cookiecutter.npm_package_name }}.json')
 ]
 
 
@@ -68,7 +68,7 @@ setup_args = dict(
     packages        = find_packages(),
     author          = '{{ cookiecutter.author_name }}',
     author_email    = '{{ cookiecutter.author_email }}',
-    url             = 'https://github.com/{{ cookiecutter.github_organization_name }}/{{ cookiecutter.python_package_name }}',
+    url             = 'https://github.com/{{ cookiecutter.github_organization_name }}/{{ cookiecutter.github_project_name }}',
     license         = 'BSD',
     platforms       = "Linux, Mac OS X, Windows",
     keywords        = ['Jupyter', 'Widgets', 'IPython'],
