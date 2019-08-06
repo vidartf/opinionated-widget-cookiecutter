@@ -27,7 +27,7 @@ module.exports = [
     entry: './src/extension.ts',
     output: {
       filename: 'index.js',
-      path: path.resolve(__dirname, '{{ cookiecutter.python_package_name }}', 'nbextension', 'static'),
+      path: path.resolve(__dirname, '..', '{{ cookiecutter.python_package_name }}', 'nbextension', 'static'),
       libraryTarget: 'amd'
     },
     module: {
@@ -51,11 +51,11 @@ module.exports = [
   {
     entry: './src/index.ts',
     output: {
-        filename: 'index.js',
-        path: path.resolve(__dirname, 'dist'),
-        libraryTarget: 'amd',
-        library: "{{ cookiecutter.npm_package_name }}",
-        publicPath: 'https://unpkg.com/{{ cookiecutter.npm_package_name }}@' + version + '/dist/'
+      filename: 'index.js',
+      path: path.resolve(__dirname, 'dist'),
+      libraryTarget: 'amd',
+      library: "{{ cookiecutter.npm_package_name }}",
+      publicPath: 'https://unpkg.com/{{ cookiecutter.npm_package_name }}@' + version + '/dist/'
     },
     devtool: 'source-map',
     module: {
@@ -75,7 +75,7 @@ module.exports = [
     entry: './src/index.ts',
     output: {
       filename: 'embed-bundle.js',
-      path: path.resolve(__dirname, 'docs', 'source', '_static'),
+      path: path.resolve(__dirname, '..', 'docs', 'source', '_static'),
       library: "{{ cookiecutter.npm_package_name }}",
       libraryTarget: 'amd'
     },

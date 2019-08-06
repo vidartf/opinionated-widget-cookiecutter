@@ -28,12 +28,13 @@ ensure_python('>=3.4')
 version = get_version(pjoin(name, '_version.py'))
 
 nb_path = pjoin(HERE, name, 'nbextension', 'static')
+js_path = pjoin(HERE, 'ts')
 lab_path = pjoin(HERE, name, 'labextension')
 
 # Representative files that should exist after a successful build
 jstargets = [
     pjoin(nb_path, 'index.js'),
-    pjoin(HERE, 'lib', 'plugin.js'),
+    pjoin(js_path, 'lib', 'plugin.js'),
 ]
 
 package_data_spec = {
@@ -54,7 +55,7 @@ data_files_spec = [
 cmdclass = create_cmdclass('jsdeps', package_data_spec=package_data_spec,
     data_files_spec=data_files_spec)
 cmdclass['jsdeps'] = combine_commands(
-    install_npm(HERE, build_cmd='build:all'),
+    install_npm(js_path, build_cmd='build:all'),
     ensure_targets(jstargets),
 )
 

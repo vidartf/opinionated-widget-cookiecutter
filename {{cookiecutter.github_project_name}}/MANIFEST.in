@@ -25,10 +25,10 @@ prune tests/build
 
 # Javascript files
 graft {{ cookiecutter.python_package_name }}/nbextension
-graft src
+graft ts
 prune **/node_modules
-prune coverage
-prune lib
+prune ts/coverage
+prune ts/lib
 
 # Patterns to exclude from any directory
 global-exclude *~
