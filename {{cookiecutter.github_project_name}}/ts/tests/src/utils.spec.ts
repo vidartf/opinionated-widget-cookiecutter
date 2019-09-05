@@ -7,8 +7,7 @@ import * as Backbone from 'backbone';
 
 let numComms = 0;
 
-export
-class MockComm {
+export class MockComm {
     target_name = 'dummy';
 
     constructor() {
@@ -46,8 +45,7 @@ class MockComm {
     _on_close: Function | null = null;
 }
 
-export
-class DummyManager extends widgets.ManagerBase<HTMLElement> {
+export class DummyManager extends widgets.ManagerBase<HTMLElement> {
     constructor() {
         super();
         this.el = window.document.createElement('div');
@@ -95,13 +93,11 @@ class DummyManager extends widgets.ManagerBase<HTMLElement> {
 }
 
 
-export
-interface Constructor<T> {
+export interface Constructor<T> {
     new (attributes?: any, options?: any): T;
 }
 
-export
-function createTestModel<T extends widgets.WidgetModel>(constructor: Constructor<T>, attributes?: any): T {
+export function createTestModel<T extends widgets.WidgetModel>(constructor: Constructor<T>, attributes?: any): T {
   let id = widgets.uuid();
   let widget_manager = new DummyManager();
   let modelOptions = {

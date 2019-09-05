@@ -10,8 +10,7 @@ import {
 } from './version';
 
 
-export
-class ExampleModel extends DOMWidgetModel {
+export class ExampleModel extends DOMWidgetModel {
   defaults() {
     return {...super.defaults(),
       _model_name: ExampleModel.model_name,
@@ -38,8 +37,7 @@ class ExampleModel extends DOMWidgetModel {
 }
 
 
-export
-class ExampleView extends DOMWidgetView {
+export class ExampleView extends DOMWidgetView {
   render() {
     this.value_changed();
     this.model.on('change:value', this.value_changed, this);
