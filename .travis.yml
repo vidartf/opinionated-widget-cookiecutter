@@ -44,7 +44,7 @@ script:
   # Make sure our lab extension was installed.
   - jupyter labextension list
   - jupyter labextension list 2>&1 | grep -q jupyter-widget-testwidgets
-  # Make sure our lab extension can be linked.
-  - jupyter labextension link
+  # Make sure our lab extension can be installed.
+  - jupyter labextension installed . --debug
   - popd
   - popd
