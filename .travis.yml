@@ -45,6 +45,6 @@ script:
   - jupyter labextension list
   - jupyter labextension list 2>&1 | grep -q jupyter-widget-testwidgets
   # Make sure our lab extension can be installed.
-  - jupyter labextension install . --debug
+  - jupyter labextension install ./ts --debug
   - popd
   - popd
