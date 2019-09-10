@@ -27,7 +27,7 @@ before_script:
 script:
   - py.test
   - pushd ts
-  - npm test
+  - npm run test:ci
   - popd
   # Check docs can be build + links
   - pushd docs
