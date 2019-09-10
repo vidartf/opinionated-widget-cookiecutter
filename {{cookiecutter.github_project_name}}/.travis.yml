@@ -41,7 +41,7 @@ install:
     elif [[ $GROUP == js ]]; then
       pip install --upgrade -e ".[test]" -v
     elif [[ $GROUP == docs ]]; then
-      pip install --upgrade ".[test, examples, docs]" -v
+      pip install --upgrade -e ".[test, examples, docs]" -v
     fi
 before_script:
   # Set up a virtual screen for Firefox browser testing:
@@ -57,10 +57,11 @@ script:
     if [[ $GROUP == python ]]; then
       pushd $(mktemp -d)
       py.test -l --cov-report xml:$TRAVIS_BUILD_DIR/coverage.xml --cov={{ cookiecutter.python_package_name }} --pyargs {{ cookiecutter.python_package_name }} || EXIT_STATUS=$?
+      py.test -l --cov-report xml:$TRAVIS_BUILD_DIR/coverage.xml --cov={{ cookiecutter.python_package_name }} $TRAVIS_BUILD_DIR/examples || EXIT_STATUS=$?
       popd
     elif [[ $GROUP == js ]]; then
       pushd ts
-      npm test || EXIT_STATUS=$?
+      npm run test:ci || EXIT_STATUS=$?
       popd
     elif [[ $GROUP == docs ]]; then
       cd docs

@@ -29,7 +29,6 @@ extensions = [
     'sphinx.ext.napoleon',
     'sphinx.ext.todo',
     'nbsphinx',
-    'jupyter_sphinx.embed_widgets',
     'nbsphinx_link',
 ]
 
@@ -177,7 +176,7 @@ texinfo_documents = [
 
 
 # Example configuration for intersphinx: refer to the Python standard library.
-intersphinx_mapping = {'https://docs.python.org/': None}
+intersphinx_mapping = {'https://docs.python.org/3/': None}
 
 # Read The Docs
 # on_rtd is whether we are on readthedocs.org, this line of code grabbed from
@@ -199,10 +198,12 @@ nbsphinx_allow_errors = True # exception ipstruct.py ipython_genutils
 
 
 def setup(app):
-    app.setup_extension('jupyter_sphinx.embed_widgets')
     def add_scripts(app):
         for fname in ['helper.js', 'embed-bundle.js']:
             if not os.path.exists(os.path.join(here, '_static', fname)):
-                app.warn('missing javascript file: %s' % fname)
+                from sphinx.util import logging
+                logger = logging.getLogger(__name__)
+                logger.warn("missing javascript file: %s" % fname)
             app.add_javascript(fname)
+
     app.connect('builder-inited', add_scripts)

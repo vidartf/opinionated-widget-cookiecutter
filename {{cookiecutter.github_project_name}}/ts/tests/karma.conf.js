@@ -25,6 +25,14 @@ module.exports = function (config) {
     singleRun: true,
     logLevel: config.LOG_INFO,
 
+    // you can define custom flags
+    customLaunchers: {
+      ChromeCI: {
+        base: 'ChromeHeadless',
+        flags: ['--no-sandbox']
+      }
+    },
+
 
     karmaTypescriptConfig: {
       tsconfig: 'tests/tsconfig.json',
@@ -35,6 +43,12 @@ module.exports = function (config) {
           "directory": "coverage",
           "filename": "coverage.lcov"
         }
+      },
+      coverageOptions: {
+        exclude: [
+          /\.(d|spec|test)\.ts$/i,
+          /plugin\.ts$/,
+        ]
       },
       bundlerOptions: {
         acornOptions: {
