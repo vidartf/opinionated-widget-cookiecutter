@@ -45,7 +45,7 @@ package_data_spec = {name: ["nbextension/static/*.*js*", "labextension/*.tgz"]}
 
 data_files_spec = [
     (
-        "share/jupyter/nbextensions/{{ cookiecutter.python_package_name}}",
+        "share/jupyter/nbextensions/{{ cookiecutter.npm_package_name }}",
         nb_path,
         "*.js*",
     ),
@@ -53,7 +53,7 @@ data_files_spec = [
     (
         "etc/jupyter/nbconfig/notebook.d",
         HERE,
-        "{{ cookiecutter.python_package_name}}.json",
+        "{{ cookiecutter.npm_package_name }}.json",
     ),
 ]
 
