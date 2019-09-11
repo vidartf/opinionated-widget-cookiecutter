@@ -6,6 +6,7 @@ python:
   - 3.7
 sudo: false
 addons:
+  chrome: stable
   apt_packages:
     - pandoc
 cache:
@@ -22,8 +23,7 @@ install:
   - pushd jupyter-widget-testwidgets
   - pip install --upgrade -v -e ".[test, examples, docs]"
 before_script:
-  - |
-    export CHROME_BIN=chromium-browser
+  - export CHROME_BIN=google-chrome-stable
 script:
   - py.test
   - pushd ts
