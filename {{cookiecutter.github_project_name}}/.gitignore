@@ -155,4 +155,4 @@ ts/yarn.lock
 **/coverage/
 
 # Packed lab extensions
-{{ cookiecutter.python_package_name  }}/labextension
+ts/lab-dist

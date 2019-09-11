@@ -8,7 +8,7 @@ include .coverage.rc
 
 include package.json
 include webpack.config.js
-include {{ cookiecutter.python_package_name }}/labextension/*.tgz
+include ts/lab-dist/*.tgz
 
 # Documentation
 graft docs
