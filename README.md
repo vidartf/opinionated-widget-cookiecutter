@@ -1,14 +1,14 @@
-# widget-ts-cookiecutter
+# opinionated-widget-cookiecutter
 
 A [cookiecutter](https://github.com/audreyr/cookiecutter) template for a custom
 Jupyter widget project.
 
-## What is widget-ts-cookiecutter?
+## What is opinionated-widget-cookiecutter?
 
-With **widget-ts-cookiecutter** you can create a custom Jupyter interactive
-widget project with sensible defaults. widget-ts-cookiecutter helps custom widget
-authors get started with best practices for the packaging and distribution
-of a custom Jupyter interactive widget library.
+With **opinionated-widget-cookiecutter** you can create a custom Jupyter
+interactive widget project with sensible defaults. opinionated-widget-cookiecutter helps custom widget authors get started
+with best practices for the packaging and distribution of a custom
+Jupyter interactive widget library.
 
 ## Usage
 
@@ -16,11 +16,11 @@ Install [cookiecutter](https://github.com/audreyr/cookiecutter):
 
     $ pip install cookiecutter
 
-After installing cookiecutter, use widget-ts-cookiecutter:
+After installing cookiecutter, use opinionated-widget-cookiecutter:
 
-    $ cookiecutter https://github.com/jupyter-widgets/widget-ts-cookiecutter.git
+    $ cookiecutter https://github.com/vidartf/opinionated-widget-cookiecutter.git
 
-As widget-ts-cookiecutter runs, you will be asked for basic information about
+As the cookiecutter runs, you will be asked for basic information about
 your custom Jupyter widget project. You will be prompted for the following
 information:
 
@@ -36,7 +36,7 @@ information:
   be used for both the "back-end" and "front-end" packages.
 
 After this, you will have a directory containing files used for creating a
-custom Jupyter widget. To check that eveything is set up as it should be,
+custom Jupyter widget. To check that everything is set up as it should be,
 you should run the tests:
 
 ```bash
@@ -70,13 +70,18 @@ you might also need another flag instead of `--sys-prefix`, but we won't cover t
 of those flags here.
 
 
-## Releasing your initial packages:
+## Releasing your initial packages
 
+- Do a develop install (see above)
 - Add tests
 - Ensure tests pass locally and on CI. Check that the coverage is reasonable.
-- Make a release commit, where you remove the `, 'dev'` entry in `_version.py`.
+- Make a release commit, where you prepare for release by running:
+  ```bash
+  pip install bumpversion
+  bumpversion release
+  ```
 - Update the version in `package.json`
-- Relase the npm packages:
+- Release the npm packages:
   ```bash
   npm login
   npm publish
@@ -88,7 +93,6 @@ of those flags here.
   twine upload dist/<python package name>*
   ```
 - Tag the release commit (`git tag <python package version identifier>`)
-- Update the version in `_version.py`, and put it back to dev (e.g. 0.1.0 -> 0.2.0.dev).
-  Update the versions of the npm packages (without publishing).
+- Go back to dev version (`bumpversion patch`).
 - Commit the changes.
 - `git push` and `git push --tags`.
