@@ -154,5 +154,5 @@ ts/yarn.lock
 # -------------
 **/coverage/
 
-# Packed lab extensions
-ts/lab-dist
+# Test data
+.pytest_cache

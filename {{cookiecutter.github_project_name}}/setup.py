@@ -32,7 +32,7 @@ name = "{{ cookiecutter.python_package_name }}"
 ensure_python(">=3.5")
 
 # Get our version
-version = get_version(pjoin(name, "_version.py"))
+version = get_version(pjoin(HERE, name, "_version.py"))
 
 nb_path = pjoin(HERE, name, "nbextension", "static")
 js_path = pjoin(HERE, "ts")

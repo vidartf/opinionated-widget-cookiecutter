@@ -15,6 +15,7 @@ module.exports = function (config) {
     ],
     exclude: [
       "src/extension.ts",
+      "src/plugin.ts",
     ],
     preprocessors: {
       '**/*.ts': ['karma-typescript']
@@ -22,7 +23,7 @@ module.exports = function (config) {
     browserNoActivityTimeout: 31000, // 31 seconds - upped from 10 seconds
     port: 9876,
     colors: true,
-    singleRun: true,
+    singleRun: !config.debug,
     logLevel: config.LOG_INFO,
 
     // you can define custom flags
@@ -36,6 +37,9 @@ module.exports = function (config) {
 
     karmaTypescriptConfig: {
       tsconfig: 'tests/tsconfig.json',
+      coverageOptions: {
+        instrumentation: !config.debug
+      },
       reports: {
         "text-summary": "",
         "html": "coverage",
@@ -44,13 +48,8 @@ module.exports = function (config) {
           "filename": "coverage.lcov"
         }
       },
-      coverageOptions: {
-        exclude: [
-          /\.(d|spec|test)\.ts$/i,
-          /plugin\.ts$/,
-        ]
-      },
       bundlerOptions: {
+        sourceMap: true,
         acornOptions: {
           ecmaVersion: 8,
         },
