@@ -2,9 +2,12 @@
 name: {{cookiecutter.python_package_name}}_docs
 channels:
   - conda-forge
+  - nodefaults
 dependencies:
-- python=3.5
 - nodejs
 - numpy
 - sphinx
 - nbsphinx
+- pip
+- ipywidgets
+- pypandoc
